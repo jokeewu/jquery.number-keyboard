@@ -1,0 +1,74 @@
+/* line 8, virtual-input.scss */
+.virtual-input {
+  font-family: "PingFangSC-Regular";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+/* line 16, virtual-input.scss */
+.virtual-input__epassword {
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  height: 3em;
+  background: #ffffff;
+  cursor: pointer;
+  position: relative;
+}
+/* line 28, virtual-input.scss */
+.virtual-input__epassword:before, .virtual-input__epassword:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0;
+  border-top: 1px solid #8C8C8C;
+  position: absolute;
+  left: 0;
+  -moz-transform: scaleY(0.5);
+  -ms-transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+/* line 44, virtual-input.scss */
+.virtual-input__epassword:before {
+  top: 0;
+}
+/* line 48, virtual-input.scss */
+.virtual-input__epassword:after {
+  bottom: 0;
+}
+/* line 53, virtual-input.scss */
+.virtual-input__epassword, .virtual-input__epassword__item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 60, virtual-input.scss */
+.virtual-input__epassword__item {
+  width: 3em;
+  position: relative;
+  text-align: center;
+  line-height: 3em;
+}
+/* line 66, virtual-input.scss */
+.virtual-input__epassword__item:after, .virtual-input__epassword__item:first-child:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%;
+  border-right: 1px solid #8C8C8C;
+  position: absolute;
+  top: 0;
+  -moz-transform: scaleX(0.5);
+  -ms-transform: scaleX(0.5);
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+}
+/* line 81, virtual-input.scss */
+.virtual-input__epassword__item:after {
+  right: 0;
+}
+/* line 85, virtual-input.scss */
+.virtual-input__epassword__item:first-child:before {
+  left: 0;
+}

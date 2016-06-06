@@ -4,64 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Document</title>
-    <link rel="stylesheet" href="../src/jquery.number-keyboard.css">
+    <link rel="stylesheet" href="../src/styles/number-keyboard.css">
+    <link rel="stylesheet" href="../src/styles/virtual-input.css">
     <style>
         html,
         body {
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+        }
+
+        .vinput {
+            width: 100%;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        #password2 {
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <button type="button" id="openKeyboard">open</button>
-    <button type="button" id="closeKeyboard">close</button>
+    <div class="virtual-input" 
+        type="epassword">
+    </div>
 
-    <!-- <div class="number-keyboard">
-        <div class="number-keyboard--close"></div>
-        <div class="number-keyboard__row">
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="1">1</div>
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="2">2</div>
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="3">3</div>
-        </div>
-        <div class="number-keyboard__row">
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="4">4</div>
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="5">5</div>
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="6">6</div>
-        </div>
-        <div class="number-keyboard__row">
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="7">7</div>
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="8">8</div>
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="9">9</div>
-        </div>
-        <div class="number-keyboard__row">
-            <div class="number-keyboard__col"></div>
-            <div class="number-keyboard__col number-keyboard--key" data-key-value="0">0</div>
-            <div class="number-keyboard__col number-keyboard--clear"></div>
-        </div>
-    </div> -->
+    <div class="virtual-input" 
+        type="epassword"
+        size="8"
+        value="4567"
+        id="password2">
+    </div>
     
     <script src="../src/jquery.min.js"></script>
     <script src="../src/jquery.number-keyboard.js"></script>
+    <script src="../src/virtual-inputs/jquery.epassword.js"></script>
+
     <script>
-        $.NumberKeyboard.init();
-        $.NumberKeyboard.setEventType('input:password');
-
-        $(document).on('input:password', function(e, type, keyValue) {
-            console.log(type, keyValue);
-        });
-
-        $('#openKeyboard').on('click', function() {
-            $.NumberKeyboard.open();
-        });
-
-        $('#closeKeyboard').on('click', function() {
-            $.NumberKeyboard.close();
-        });
-
-
-
+        $('[type="epassword"]')
+            .on('change', function(e, value) {
+                console.log('change', value);
+            })
+            .on('complete', function(e, value) {
+                console.log('complete', value);
+            })
     </script>
 </body>
 </html>

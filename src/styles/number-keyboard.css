@@ -1,26 +1,28 @@
-/* line 50, jquery.number-keyboard.scss */
+/* line 13, number-keyboard.scss */
 .number-keyboard {
-  font-family: 'PingFangSC-Regular';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   width: 100%;
-  background-color: #ffffff;
   position: fixed;
   bottom: 0;
-  z-index: 99999;
+  z-index: 999999;
+  background-color: #ffffff;
+  font-family: 'PingFangSC-Regular';
+  font-size: 26px;
+  color: #222222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
-/* line 64, jquery.number-keyboard.scss */
-.number-keyboard.hide {
+/* line 30, number-keyboard.scss */
+.number-keyboard.closed {
   display: none;
 }
-/* line 68, jquery.number-keyboard.scss */
+/* line 34, number-keyboard.scss */
 .number-keyboard--close {
   height: 30px;
   position: relative;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
 }
-/* line 74, jquery.number-keyboard.scss */
+/* line 40, number-keyboard.scss */
 .number-keyboard--close:after {
   content: "";
   display: block;
@@ -37,70 +39,87 @@
   left: 50%;
   margin-left: -16px;
 }
-/* line 90, jquery.number-keyboard.scss */
+/* line 56, number-keyboard.scss */
+.number-keyboard__body {
+  position: relative;
+}
+/* line 59, number-keyboard.scss */
+.number-keyboard__body:before {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #8C8C8C;
+  position: absolute;
+  top: 0;
+  -moz-transform: scaleY(0.5);
+  -ms-transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+/* line 73, number-keyboard.scss */
+.number-keyboard__row, .number-keyboard__col {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 80, number-keyboard.scss */
 .number-keyboard__row {
   display: flex;
 }
-/* line 94, jquery.number-keyboard.scss */
+/* line 85, number-keyboard.scss */
 .number-keyboard__row:last-child .number-keyboard__col:last-child {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF0AAAA/CAQAAAAoRAwZAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAArwAAAK8ACwB0c8AAASbSURBVGje7Zp9TFVlGMB/9wsGKnGbg0ypNlqYNDHc+rBPdLVyNGm1LN3a/MN0jcoM12abtcp/NBfUX2RIjfVBtZZbmctabU3WyomsmRWkSZMpJsoNCe/lcvrDy9tz4MI957znvYvF8/7Due/e5/nxfjzv8zznwLRMy/9DAprjw0SMcFlcwDKHHqCG1cw2gp7gD7po5yC9mf4FL/IwJ7GMtgEO8Rh5foPfzVHD4KP4LZT5CV7FkayAX2z7uWo8gre9XskuKtRTghG/l5QAERtbIxsY0kcvYye3qac26unX9lRjJcw8KljJpannGOt5T1dpCXvFUrZT6TO0xF9Bp7L0DTP01BXzrgD/hTuMgV+UVQykbB3lSh1FUZoZUeDHuccwOEQ5kLLWz43e1eTxKsMK/BQPGgeHEI0pe4PeVzjCZgYVeIx1vh/N9FKnix6mlpi4JjYZil18Rw+whj4FHmcLOVkC10a/nx4FPkwDM7MGrom+hN8U+AjN6pr4z6Nfx0HhyT9jblbBJ0EPZhhYRhPXq6e9PM4Jx0aD5E94JgJEKTJ51OfyhZjx75jvYmwBz/EtrdyQpi/Co/zAT2yjIKMeTxtmNh+Ku/OIy9tsI/FUsLBsTE+YWs5hYZGgzgT6LJrF3XmMpa7AgyLW+dUGH6aWftXXnPFic42eTz0XlIGTVLsCB9gmtlony1O/5lAnwIf9n/VcXuZvZeAcqzMe5/FSxn4B38VyIMQG/hKOtsWBo3WFHuJpYWCQpzx6ggrabPDV1HJWgL/DZQ60uEAPsIYz4tJ/SSMjX2ib+R4RTDgFd4W+UpQo4mx34L4mh/86TZqcoMkhuAv0eRwWM/MmhVrgAAvGwSfY6SKYcIy+ROzyw3oplZJKkWFaWHzuKgpyHAjEOK/+nkOVB88yVnJZRrHtl6t1UrXJDL0i/HkvD2nCz2CzWMd/vc19jnMsF8e0gLdIKiMntFLnfF5gKG09q5sah/Cu/HoRH4vYpZNbfQGP08o+D/Aub9MSm5EfKdcGT/AGhZTaItFuavxHh2v5Xhj5NF25MoOss814Y8qrzLe5yi4HtTMPkeNCDgkjn3C5K/AIuwV4A7NUTylfCr0vmkC356QWTURdoIdU0GsHt8MnecIMOlSLSkCSHWMQMo09Rpyz7EgTSpSymxgDfESRKfQAq/hTLPzz5DoeG+QaarhpguCtgJu5xdE6eq4IBFkrql6DbCTsToG2aBQzItRxXsH3s9aH4CBL6JBLvchST/PA1EGHKC22uvpdUwcdimkVjrLT+NsMH9HhCltw0M6iLKE/4zRen1i6eZI29bSI113VwryL5suvUVlMh5j5PZQYB89jj5r12/VUVfGzyF3fZ45h9HK6U9ZOsUBX2b38LuB3Ga22F/K2stXhxzcgj9CrFA6znZkECPraAgS5hKV8kCq5Wlg0ELJjeHkLF2Q9W1WZY4iv6DPwor2EclFK6WAFx/1RvElENuZbn583eA5bJ0iY/W89POvv+498XhM70VSLs487029H7yHsIFtIstjAtzCjYnGaAzRxJn233vEy9b3dqMRJGtU/LdMyJeQfFX3/c3D1lqAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTAtMTNUMDA6MTk6MDErMDg6MDCkoTupAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEwLTEzVDAwOjE5OjAxKzA4OjAw1fyDFQAAAE50RVh0c29mdHdhcmUASW1hZ2VNYWdpY2sgNi44LjgtMTAgUTE2IHg4Nl82NCAyMDE1LTA3LTE5IGh0dHA6Ly93d3cuaW1hZ2VtYWdpY2sub3JnBQycNQAAAFl0RVh0c3ZnOmNvbW1lbnQAIEdlbmVyYXRvcjogU2tldGNoIEJldGEgMy4zLjIgKDEyMDQxKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCDY+YpbAAAAEHRFWHRzdmc6dGl0bGUAZGVsZXRlNX6wfAAAABh0RVh0VGh1bWI6OkRvY3VtZW50OjpQYWdlcwAxp/+7LwAAABh0RVh0VGh1bWI6OkltYWdlOjpIZWlnaHQAMjU1cMoVowAAABd0RVh0VGh1bWI6OkltYWdlOjpXaWR0aAAzNzM5rOh+AAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE0NDQ2NjY3NDE2qtd6AAAAE3RFWHRUaHVtYjo6U2l6ZQA0LjMyS0JCy/AdTQAAAFp0RVh0VGh1bWI6OlVSSQBmaWxlOi8vL2hvbWUvd3d3cm9vdC93d3cuZWFzeWljb24ubmV0L2Nkbi1pbWcuZWFzeWljb24uY24vc3JjLzExODc4LzExODc4NDkucG5npT8ICAAAAABJRU5ErkJggg==");
   background-repeat: no-repeat;
-  background-size: 25%;
+  background-size: 25px;
   background-position: 50%;
+  text-indent: 9999px;
 }
-/* line 103, jquery.number-keyboard.scss */
+/* line 93, number-keyboard.scss */
+.number-keyboard__row:last-child .number-keyboard__col:after {
+  display: none;
+}
+/* line 99, number-keyboard.scss */
 .number-keyboard__col {
   flex: 1;
   width: 0;
-  box-sizing: border-box;
-  float: left;
-  font-size: 24px;
-  height: 2.2em;
-  line-height: 2.2em;
+  overflow: hidden;
   text-align: center;
+  line-height: 2.2em;
   cursor: pointer;
-  outline: none;
   position: relative;
-  -webkit-tap-highlight-color: transparent;
 }
-/* line 12, jquery.number-keyboard.scss */
-.number-keyboard__col:after {
-  content: "";
-  display: block;
-  position: absolute;
-  border-right: 1px solid #8C8C8C;
-  width: 0;
-  height: 100%;
-  right: 0;
-  top: 0;
-  -moz-transform: scaleX(0.25);
-  -ms-transform: scaleX(0.25);
-  -webkit-transform: scaleX(0.25);
-  transform: scaleX(0.25);
-}
-/* line 12, jquery.number-keyboard.scss */
-.number-keyboard__col:before {
-  content: "";
-  display: block;
-  position: absolute;
-  border-top: 1px solid #8C8C8C;
-  width: 100%;
-  height: 0;
-  top: 0;
-  -moz-transform: scaleY(0.25);
-  -ms-transform: scaleY(0.25);
-  -webkit-transform: scaleY(0.25);
-  transform: scaleY(0.25);
-}
-/* line 121, jquery.number-keyboard.scss */
-.number-keyboard__col:last-child:after {
+/* line 110, number-keyboard.scss */
+.number-keyboard__col:last-child:before {
   display: none;
 }
-/* line 126, jquery.number-keyboard.scss */
-.number-keyboard__col:empty {
-  background-color: #f0f0f0;
+/* line 115, number-keyboard.scss */
+.number-keyboard__col:before, .number-keyboard__col:after {
+  content: "";
+  display: block;
+  position: absolute;
 }
-/* line 130, jquery.number-keyboard.scss */
-.number-keyboard__col:active {
+/* line 122, number-keyboard.scss */
+.number-keyboard__col:before {
+  height: 100%;
+  border-right: 1px solid #8C8C8C;
+  top: 0;
+  right: 0;
+  -moz-transform: scaleX(0.5);
+  -ms-transform: scaleX(0.5);
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+}
+/* line 130, number-keyboard.scss */
+.number-keyboard__col:after {
+  width: 100%;
+  border-bottom: 1px solid #8C8C8C;
+  bottom: 0;
+  -moz-transform: scaleY(0.5);
+  -ms-transform: scaleY(0.5);
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+/* line 137, number-keyboard.scss */
+.number-keyboard__col:empty {
   background-color: #f0f0f0;
 }

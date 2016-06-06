@@ -1,68 +1,48 @@
-(function($) {
+;(function($) {
 
-    var $doc = $(document),
-        $body = $('body');
+  'use strict';
 
-    var Keyboard = {
+  var tpl = '<div class="number-keyboard closed"><div class="number-keyboard__head number-keyboard--close"></div><div class="number-keyboard__body"><dl class="number-keyboard__row"><dd class="number-keyboard__col" data-key-value="7">7</dd><dd class="number-keyboard__col" data-key-value="8">8</dd><dd class="number-keyboard__col" data-key-value="9">9</dd></dl><dl class="number-keyboard__row"><dd class="number-keyboard__col" data-key-value="4">4</dd><dd class="number-keyboard__col" data-key-value="5">5</dd><dd class="number-keyboard__col" data-key-value="6">6</dd></dl><dl class="number-keyboard__row"><dd class="number-keyboard__col" data-key-value="1">1</dd><dd class="number-keyboard__col" data-key-value="2">2</dd><dd class="number-keyboard__col" data-key-value="3">3</dd></dl><dl class="number-keyboard__row"><dd class="number-keyboard__col"></dd><dd class="number-keyboard__col" data-key-value="0">0</dd><dd class="number-keyboard__col" data-key-value="-1"></dd></dl></div></div>';
 
-        _tpl: '<div class="number-keyboard hide"><div class="number-keyboard--close"></div><div class="number-keyboard__row"><div class="number-keyboard__col number-keyboard--key" data-key-value="1">1</div><div class="number-keyboard__col number-keyboard--key" data-key-value="2">2</div><div class="number-keyboard__col number-keyboard--key" data-key-value="3">3</div></div><div class="number-keyboard__row"><div class="number-keyboard__col number-keyboard--key" data-key-value="4">4</div><div class="number-keyboard__col number-keyboard--key" data-key-value="5">5</div><div class="number-keyboard__col number-keyboard--key" data-key-value="6">6</div></div><div class="number-keyboard__row"><div class="number-keyboard__col number-keyboard--key" data-key-value="7">7</div><div class="number-keyboard__col number-keyboard--key" data-key-value="8">8</div><div class="number-keyboard__col number-keyboard--key" data-key-value="9">9</div></div><div class="number-keyboard__row"><div class="number-keyboard__col"></div><div class="number-keyboard__col number-keyboard--key" data-key-value="0">0</div><div class="number-keyboard__col number-keyboard--clear"></div></div></div>',
+  var $doc = $(document),
+      $body = $('body'),
+      $keyboard = $(tpl);
 
-        _bindEventTypes: [],
+  var events = {
+    open: 'number-keyboard:open',
+    close: 'number-keyboard:close',
+    input: 'number-keyboard:input'
+  };
 
-        _currentEventType: '',
+  $body.append($keyboard);
 
-        _$keyboard: null,
+  $doc
+    .on(events.open, function(e, $input) {
+      $keyboard.removeClass('closed');
+      $body.addClass('number-keyboard--opened');
+      $keyboard.data('$input', $input);
+    })
 
-        init: function() {
-            this._$keyboard = $(this._tpl);
-            this._render();
-            this._bindEvent();
-        },
+    .on(events.close, function() {
+      $keyboard.addClass('closed');
+      $body.removeClass('number-keyboard--opened');
+    })
 
-        _render: function() {
-            // 判断是否存在
-            $body.append(this._$keyboard);
-        },
+    .on('click', '.number-keyboard--close', function() {
+      $doc.trigger(events.close);
+    })
 
-        _bindEvent: function() {
-            var self = this;
-            $doc
-                // 关闭键盘
-                .on('click', '.number-keyboard--close', function() {
-                    self.close();
-                })
+    .on('click', '.number-keyboard__col', function() {
+      var keyValue = $(this).data('keyValue'),
+          $input = $keyboard.data('$input');
 
-                // 数字点击
-                .on('click', '.number-keyboard--key', function() {
-                    var keyValue = $(this).data('keyValue');
-                    $doc.trigger(self._currentEventType, ['msg', keyValue]);
-                })
+      if (typeof keyValue === 'undefined' 
+          || keyValue === null 
+          || keyValue === '') {
+        return;
+      }
 
-                // 清除键点击
-                .on('click', '.number-keyboard--clear', function() {
-                    $doc.trigger(self._currentEventType, ['cmd', 'clear']);
-                });
-        },
-
-        setEventType: function(eventType) {
-            if ($.inArray(eventType, this._bindEventTypes) === -1) {
-                this._bindEventTypes.push(eventType);
-            }
-
-            this._currentEventType = eventType;
-        },
-
-        open: function() {
-            this._$keyboard.removeClass('hide');
-        },
-
-        close: function() {
-            this._$keyboard.addClass('hide');
-        }
-    };
-
-    $.extend({
-        NumberKeyboard: Keyboard
+      $input.trigger(events.input, [keyValue]);
     });
 
 })(jQuery);
